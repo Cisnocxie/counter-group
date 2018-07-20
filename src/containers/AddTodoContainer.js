@@ -3,20 +3,31 @@ import AddTodo from "../components/AddTodo";
 import todosAPI from '../api/TodoResourseAPI';
 import Todo from '../model/Todo';
 
+const deepCopy = (array) => {
+    return JSON.parse(JSON.stringify(array));
+}
+
+const mapStateToProps = (state, ownProps) =>{
+    return {
+        todos: state
+    }
+}
+
 const mapDispatchToProps = (dispatch, ownProps) =>{
     return {
         add:(ref) => {
             if (ref.value !== ''){
+                console.log(todosAPI);
                 todosAPI.add(new Todo(ref.value));
-                const todos = this.deepCopy(
+                const todos = deepCopy(
                   todosAPI.filerByStatus('all')
                 );
                 ref.value = '';
+                () => dispatch({type: 'ADDTODO', todos});
             }
-            dispatch({type: 'ADDTODO'});
         },
     }
 }
 
 
-export default connect(mapDispatchToProps)(AddTodo);
+export default connect(mapStateToProps, mapDispatchToProps)(AddTodo);

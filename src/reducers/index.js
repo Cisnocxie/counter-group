@@ -3,7 +3,7 @@ export default (state = [], action) => {
     switch(action.type) {
         case 'ADDTODO':
         {
-            return todosAPI.filerByStatus('all')
+            return action.todos
         }
     }
 }

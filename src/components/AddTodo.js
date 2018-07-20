@@ -15,7 +15,7 @@ class AddTodo extends Component {
                 id="todo-creator"
                 ref="newItem"
                 />
-                <div className="button" onClick={this.add}>
+                <div className="button" onClick={() => this.add()}>
                 Add
                 </div>
             </div>
