@@ -4,6 +4,7 @@ import Todo from './model/Todo';
 import TodoItem from './components/TodoItem';
 import classNames from 'classnames';
 import todosAPI from './api/TodoResourseAPI';
+import AddTodoContainer from './containers/AddTodoContainer';
 
 class App extends Component {
   constructor(props) {
@@ -71,20 +72,11 @@ class App extends Component {
             <em>Simple Todo List with adding and filter by diff status.</em>
           </p>
         </div>
-        <div>
-          <input
-            className="input-text"
-            id="todo-creator"
-            ref="newItem"
-          />
-          <div className="button" onClick={e => this.add()}>
-            Add
-          </div>
-        </div>
+        <AddTodoContainer />
         <div>
           <ol>
-            {(() => {
-              return this.state.todos.map(item => (
+            {
+              this.state.todos.map(item => (
                 <TodoItem
                   item={item}
                   key={item.viewId}
@@ -93,8 +85,8 @@ class App extends Component {
                     this.updateItemContent(viewId, content)
                   }
                 />
-              ));
-            })()}
+              ))
+            }
           </ol>
         </div>
         <div>
