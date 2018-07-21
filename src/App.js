@@ -5,6 +5,7 @@ import TodoItem from './components/TodoItem';
 import classNames from 'classnames';
 import todosAPI from './api/TodoResourseAPI';
 import AddTodoContainer from './containers/AddTodoContainer';
+import TodoListContainer from './containers/TodoListContainer';
 
 class App extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class App extends Component {
   }
 
   add() {
-    if (this.refs.newItem.value !== ''){
+    if (this.refs.newItem.value !== '') {
       this.todosAPI.add(new Todo(this.refs.newItem.value));
       const todos = this.deepCopy(
         this.todosAPI.filerByStatus(this.state.statusOfList)
@@ -75,18 +76,7 @@ class App extends Component {
         <AddTodoContainer />
         <div>
           <ol>
-            {
-              this.state.todos.map(item => (
-                <TodoItem
-                  item={item}
-                  key={item.viewId}
-                  toggleActiveHandler={viewId => this.toggleActive(viewId)}
-                  updateItemContent={(viewId, content) =>
-                    this.updateItemContent(viewId, content)
-                  }
-                />
-              ))
-            }
+            <TodoListContainer />
           </ol>
         </div>
         <div>
