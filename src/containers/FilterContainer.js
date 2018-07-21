@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import Filter from '../components/Filter';
+import * as actions from '../actions';
 
 const mapStateToProps = state => {
   return {
@@ -12,7 +13,7 @@ const mapDispatchToProps = dispatch => {
     showFilterList: event => {
       const statusOfList = event.target.attributes.getNamedItem('data-filter')
         .value;
-      dispatch({ type: 'SET_STATUS_OF_LIST', statusOfList });
+      dispatch(actions.setStatusOfList(statusOfList));
     }
   };
 };

@@ -1,0 +1,2 @@
+export const MODIFY_TODOS = 'MODIFY_TODOS';
+export const SET_STATUS_OF_LIST = 'SET_STATUS_OF_LIST';

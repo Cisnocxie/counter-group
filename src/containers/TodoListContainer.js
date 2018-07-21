@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import TodoList from '../components/TodoList';
 import todosAPI from '../api/TodoResourseAPI';
+import * as actions from '../actions';
 
 const deepCopy = array => {
   return JSON.parse(JSON.stringify(array));
@@ -17,13 +18,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     toggleActive: viewId => {
       todosAPI.toggleActive(viewId);
       const todos = deepCopy(todosAPI.todos);
-      dispatch({ type: 'ADDTODO', todos });
+      dispatch(actions.modifyTodos(todos));
     },
 
     updateItemContent: (viewId, content) => {
       todosAPI.updateItemContent(viewId, content);
       const todos = deepCopy(todosAPI.todos);
-      dispatch({ type: 'ADDTODO', todos });
+      dispatch(actions.modifyTodos(todos));
     }
   };
 };

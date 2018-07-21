@@ -3,11 +3,11 @@ import '../App.css';
 
 class AddTodo extends Component {
   render() {
-    const { add } = this.props;
+    const { addTodo } = this.props;
     return (
       <div>
         <input className="input-text" id="todo-creator" ref="newItem" />
-        <div className="button" onClick={() => add(this.refs.newItem)}>
+        <div className="button" onClick={() => addTodo(this.refs.newItem)}>
           Add
         </div>
       </div>
