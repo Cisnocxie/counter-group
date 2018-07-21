@@ -1,69 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
 import Todo from './model/Todo';
-import TodoItem from './components/TodoItem';
-import classNames from 'classnames';
-import todosAPI from './api/TodoResourseAPI';
 import AddTodoContainer from './containers/AddTodoContainer';
 import TodoListContainer from './containers/TodoListContainer';
+import FilterContainer from './containers/FilterContainer';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.todosAPI = todosAPI;
-
-    this.state = {
-      todos: [],
-      statusOfList: Todo.ALL
-    };
-  }
-
-  componentDidMount() {
-    this.setState({
-      todos: this.deepCopy(this.todosAPI.filerByStatus(Todo.ALL))
-    });
-  }
-
-  add() {
-    if (this.refs.newItem.value !== '') {
-      this.todosAPI.add(new Todo(this.refs.newItem.value));
-      const todos = this.deepCopy(
-        this.todosAPI.filerByStatus(this.state.statusOfList)
-      );
-      this.setState({ todos });
-      this.refs.newItem.value = '';
-      console.log(todos);
-    }
-  }
-
-  toggleActive(viewId) {
-    this.todosAPI.toggleActive(viewId);
-    const todos = this.deepCopy(
-      this.todosAPI.filerByStatus(this.state.statusOfList)
-    );
-    this.setState({ todos });
-  }
-
-  showFilterList(event) {
-    console.log(this.state.todos);
-    const statusOfList = event.target.attributes.getNamedItem('data-filter')
-      .value;
-    const todos = this.deepCopy(this.todosAPI.filerByStatus(statusOfList));
-    this.setState({ todos, statusOfList });
-  }
-
-  updateItemContent(viewId, content) {
-    this.todosAPI.updateItemContent(viewId, content);
-    const todos = this.deepCopy(
-      this.todosAPI.filerByStatus(this.state.statusOfList)
-    );
-    this.setState({ todos, statusOfList: this.state.statusOfList });
-  }
-
-  deepCopy(array) {
-    return JSON.parse(JSON.stringify(array));
-  }
-
   render() {
     return (
       <div className="container">
@@ -81,42 +23,23 @@ class App extends Component {
         </div>
         <div>
           <ul className="filters">
-            <li>
-              <a
-                href="#all"
-                onClick={e => this.showFilterList(e)}
-                data-filter="all"
-                className={classNames({
-                  selected: this.state.statusOfList === Todo.ALL
-                })}
-              >
-                ALL
-              </a>
-            </li>
-            <li>
-              <a
-                href="#active"
-                onClick={e => this.showFilterList(e)}
-                data-filter="active"
-                className={classNames({
-                  selected: this.state.statusOfList === Todo.ACTIVE
-                })}
-              >
-                Active
-              </a>
-            </li>
-            <li>
-              <a
-                href="#completed"
-                onClick={e => this.showFilterList(e)}
-                data-filter="completed"
-                className={classNames({
-                  selected: this.state.statusOfList === Todo.COMPLETED
-                })}
-              >
-                Complete
-              </a>
-            </li>
+            <FilterContainer href="#all" dataFilter="all" filterName={Todo.ALL}>
+              ALL
+            </FilterContainer>
+            <FilterContainer
+              href="#active"
+              dataFilter="active"
+              filterName={Todo.ACTIVE}
+            >
+              Active
+            </FilterContainer>
+            <FilterContainer
+              href="#completed"
+              dataFilter="completed"
+              filterName={Todo.COMPLETED}
+            >
+              Active
+            </FilterContainer>
           </ul>
         </div>
       </div>

@@ -8,7 +8,7 @@ const deepCopy = array => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    todos: state
+    todos: deepCopy(todosAPI.filerByStatus(state.filter))
   };
 };
 
@@ -16,14 +16,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     toggleActive: viewId => {
       todosAPI.toggleActive(viewId);
-      const todos = deepCopy(todosAPI.filerByStatus('all'));
-      () => dispatch({ type: 'ADDTODO', todos });
+      const todos = deepCopy(todosAPI.todos);
+      dispatch({ type: 'ADDTODO', todos });
     },
 
     updateItemContent: (viewId, content) => {
       todosAPI.updateItemContent(viewId, content);
-      const todos = this.deepCopy(todosAPI.filerByStatus('all'));
-      () => dispatch({ type: 'ADDTODO', todos });
+      const todos = deepCopy(todosAPI.todos);
+      dispatch({ type: 'ADDTODO', todos });
     }
   };
 };

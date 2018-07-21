@@ -1,11 +1,8 @@
-import todosAPI from '../api/TodoResourseAPI';
-export default (state = [], action) => {
-  switch (action.type) {
-    case 'ADDTODO': {
-      console.log(action.todos);
-      return action.todos;
-    }
-    default:
-      return state;
-  }
-};
+import { combineReducers } from 'redux';
+import todos from './todos';
+import filter from './filter';
+
+export default combineReducers({
+  todos,
+  filter
+});
