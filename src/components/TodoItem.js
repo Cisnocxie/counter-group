@@ -36,7 +36,7 @@ class TodoItem extends Component {
             type="checkbox"
             className="done-todo"
             defaultChecked={item.status === Todo.COMPLETED}
-            onClick={e => this.toggleActive(item.viewId)}
+            onClick={e => this.toggleActive(item.id)}
           />
         }
         <span onDoubleClick={e => this.changeToEditable(e)}>

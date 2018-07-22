@@ -14,10 +14,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     addTodo: ref => {
       if (ref.value !== '') {
-        todosAPI.add(new Todo(ref.value));
-        const todos = deepCopy(todosAPI.todos);
+        const todo = new Todo(ref.value);
+        todosAPI.add(todo, todo => dispatch(actions.addTodo(todo)));
+        // const todos = deepCopy(todosAPI.todos);
         ref.value = '';
-        dispatch(actions.modifyTodos(todos));
       }
     }
   };

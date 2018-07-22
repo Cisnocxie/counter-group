@@ -38,7 +38,7 @@ class App extends Component {
               dataFilter="completed"
               filterName={Todo.COMPLETED}
             >
-              Active
+              Completed
             </FilterContainer>
           </ul>
         </div>

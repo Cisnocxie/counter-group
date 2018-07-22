@@ -1,15 +1,42 @@
 import Todo from '../model/Todo';
+import axios from 'axios';
 
 const todosAPI = {
   todos: [],
-  add(item) {
-    this.todos.push(item);
+  apiUrl: 'http://localhost:8080/api',
+  add(todo, successCallBack) {
+    // this.todos.push(todo, successCallBack);
+    axios
+      .post(`${this.apiUrl}/todos`, {
+        id: todo.viewId,
+        content: todo.content,
+        status: todo.status
+      })
+      .then(function(response) {
+        console.log(response);
+        successCallBack(response.data);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   },
-  filerByStatus(status) {
+  filerByStatus(status, successCallBack) {
+    let url = `${this.apiUrl}/todos/search/statusOfTodos?status=`;
     if (status === Todo.ALL) {
-      return this.todos;
+      url += 'completed,active';
+    } else if (status === Todo.ACTIVE) {
+      url += 'active';
+    } else {
+      url += 'completed';
     }
-    return this.todos.filter(item => item.status === status);
+    axios
+      .get(url)
+      .then(function(response) {
+        successCallBack(response.data._embedded.todos);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   },
   toggleActive(viewId) {
     let todo = this.todos.find(item => item.viewId === viewId);

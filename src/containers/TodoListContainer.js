@@ -22,13 +22,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     toggleActive: viewId => {
       todosAPI.toggleActive(viewId);
       const todos = deepCopy(todosAPI.todos);
-      dispatch(actions.modifyTodos(todos));
+      dispatch(actions.addTodo(todos));
     },
 
     updateItemContent: (viewId, content) => {
       todosAPI.updateItemContent(viewId, content);
       const todos = deepCopy(todosAPI.todos);
-      dispatch(actions.modifyTodos(todos));
+      dispatch(actions.addTodo(todos));
     }
   };
 };
