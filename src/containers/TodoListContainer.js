@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import TodoList from '../components/TodoList';
 import todosAPI from '../api/TodoResourseAPI';
 import * as actions from '../actions';
+import Todo from '../model/Todo';
 
 const deepCopy = array => {
   return JSON.parse(JSON.stringify(array));
@@ -9,7 +10,10 @@ const deepCopy = array => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    todos: deepCopy(todosAPI.filerByStatus(state.filter))
+    todos:
+      state.filter === Todo.ALL
+        ? state.todos
+        : state.todos.filter(item => item.status === state.filter)
   };
 };
 
