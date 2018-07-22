@@ -4,10 +4,6 @@ import todosAPI from '../api/TodoResourseAPI';
 import Todo from '../model/Todo';
 import * as actions from '../actions';
 
-const deepCopy = array => {
-  return JSON.parse(JSON.stringify(array));
-};
-
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = (dispatch, ownProps) => {

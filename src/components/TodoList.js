@@ -10,7 +10,9 @@ class TodoList extends Component {
           <TodoItem
             item={item}
             key={item.id}
-            toggleActiveHandler={viewId => toggleActive(viewId)}
+            toggleActiveHandler={(viewId, status) =>
+              toggleActive(viewId, status)
+            }
             updateItemContent={(viewId, content) =>
               updateItemContent(viewId, content)
             }

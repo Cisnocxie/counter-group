@@ -4,10 +4,6 @@ import todosAPI from '../api/TodoResourseAPI';
 import * as actions from '../actions';
 import Todo from '../model/Todo';
 
-const deepCopy = array => {
-  return JSON.parse(JSON.stringify(array));
-};
-
 const mapStateToProps = (state, ownProps) => {
   return {
     todos:
@@ -19,16 +15,18 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    toggleActive: viewId => {
-      todosAPI.toggleActive(viewId);
-      const todos = deepCopy(todosAPI.todos);
-      dispatch(actions.addTodo(todos));
+    toggleActive: (viewId, status) => {
+      const toggleStatus =
+        status === Todo.ACTIVE ? Todo.COMPLETED : Todo.ACTIVE;
+      todosAPI.toggleActive(viewId, toggleStatus, todos =>
+        dispatch(actions.getTodos(todos))
+      );
     },
 
     updateItemContent: (viewId, content) => {
-      todosAPI.updateItemContent(viewId, content);
-      const todos = deepCopy(todosAPI.todos);
-      dispatch(actions.addTodo(todos));
+      todosAPI.updateItemContent(viewId, content, todos =>
+        dispatch(actions.getTodos(todos))
+      );
     }
   };
 };

@@ -10,7 +10,7 @@ import todosAPI from './api/TodoResourseAPI';
 import * as actions from './actions';
 
 const store = createStore(rootReducers);
-todosAPI.filerByStatus('all', todos => store.dispatch(actions.getTodos(todos)));
+todosAPI.getAllTodos(todos => store.dispatch(actions.getTodos(todos)));
 
 ReactDOM.render(
   <Provider store={store}>

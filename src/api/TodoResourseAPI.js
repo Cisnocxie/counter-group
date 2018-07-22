@@ -1,11 +1,8 @@
-import Todo from '../model/Todo';
 import axios from 'axios';
 
 const todosAPI = {
-  todos: [],
   apiUrl: 'http://localhost:8080/api',
   add(todo, successCallBack) {
-    // this.todos.push(todo, successCallBack);
     axios
       .post(`${this.apiUrl}/todos`, {
         id: todo.viewId,
@@ -20,17 +17,9 @@ const todosAPI = {
         console.log(error);
       });
   },
-  filerByStatus(status, successCallBack) {
-    let url = `${this.apiUrl}/todos/search/statusOfTodos?status=`;
-    if (status === Todo.ALL) {
-      url += 'completed,active';
-    } else if (status === Todo.ACTIVE) {
-      url += 'active';
-    } else {
-      url += 'completed';
-    }
+  getAllTodos(successCallBack) {
     axios
-      .get(url)
+      .get(`${this.apiUrl}/todos/search/statusOfTodos?status=completed,active`)
       .then(function(response) {
         successCallBack(response.data._embedded.todos);
       })
@@ -38,17 +27,29 @@ const todosAPI = {
         console.log(error);
       });
   },
-  toggleActive(viewId) {
-    let todo = this.todos.find(item => item.viewId === viewId);
-    if (todo !== undefined) {
-      todo.toggleActive();
-    }
+  toggleActive(viewId, status, successCallBack) {
+    axios
+      .patch(`${this.apiUrl}/todos/${viewId}`, {
+        status: status
+      })
+      .then(response => {
+        this.getAllTodos(successCallBack);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   },
-  updateItemContent(viewId, content) {
-    let todo = this.todos.find(item => item.viewId === viewId);
-    if (todo !== undefined) {
-      todo.content = content;
-    }
+  updateItemContent(viewId, content, successCallBack) {
+    axios
+      .patch(`${this.apiUrl}/todos/${viewId}`, {
+        content: content
+      })
+      .then(response => {
+        this.getAllTodos(successCallBack);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 };
 export default todosAPI;
