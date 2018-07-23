@@ -4,6 +4,7 @@ import Todo from './model/Todo';
 import AddTodoContainer from './containers/AddTodoContainer';
 import TodoListContainer from './containers/TodoListContainer';
 import FilterContainer from './containers/FilterContainer';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 class App extends Component {
   render() {
@@ -17,24 +18,27 @@ class App extends Component {
         </div>
         <AddTodoContainer />
         <div>
-          <ol>
-            <TodoListContainer />
-          </ol>
+          <BrowserRouter>
+            <ol>
+              <Route exact path={`/`} component={TodoListContainer} />
+              <Route path={`/:status`} component={TodoListContainer} />
+            </ol>
+          </BrowserRouter>
         </div>
         <div>
           <ul className="filters">
-            <FilterContainer href="#all" dataFilter="all" filterName={Todo.ALL}>
+            <FilterContainer href="/" dataFilter="all" filterName={Todo.ALL}>
               ALL
             </FilterContainer>
             <FilterContainer
-              href="#active"
+              href="/active"
               dataFilter="active"
               filterName={Todo.ACTIVE}
             >
               Active
             </FilterContainer>
             <FilterContainer
-              href="#completed"
+              href="/completed"
               dataFilter="completed"
               filterName={Todo.COMPLETED}
             >

@@ -5,11 +5,13 @@ import * as actions from '../actions';
 import Todo from '../model/Todo';
 
 const mapStateToProps = (state, ownProps) => {
+  const status = ownProps.match.params.status;
+  todosAPI.setStatus(status === undefined ? 'all' : status);
   return {
     todos:
-      state.filter === Todo.ALL
+      status === undefined
         ? state.todos
-        : state.todos.filter(item => item.status === state.filter)
+        : state.todos.filter(item => item.status === status)
   };
 };
 
