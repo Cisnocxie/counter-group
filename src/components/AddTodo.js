@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
+import { Icon } from 'antd';
+import 'antd/dist/antd.css';
 
 class AddTodo extends Component {
   render() {
@@ -7,9 +9,11 @@ class AddTodo extends Component {
     return (
       <div>
         <input className="input-text" id="todo-creator" ref="newItem" />
-        <div className="button" onClick={() => addTodo(this.refs.newItem)}>
-          Add
-        </div>
+        <Icon
+          type="plus"
+          className="button"
+          onClick={() => addTodo(this.refs.newItem)}
+        />
       </div>
     );
   }

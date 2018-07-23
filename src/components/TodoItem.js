@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Todo from '../model/Todo';
 import '../App.css';
+import { Checkbox } from 'antd';
+import 'antd/dist/antd.css';
 
 class TodoItem extends Component {
   constructor(props) {
@@ -32,11 +34,16 @@ class TodoItem extends Component {
     return (
       <li className={item.status}>
         {
-          <input
-            type="checkbox"
+          // <input
+          //   type="checkbox"
+          //   className="done-todo"
+          //   defaultChecked={item.status === Todo.COMPLETED}
+          //   onClick={e => this.toggleActive(item.id, item.status)}
+          // />
+          <Checkbox
             className="done-todo"
-            defaultChecked={item.status === Todo.COMPLETED}
-            onClick={e => this.toggleActive(item.id, item.status)}
+            checked={item.status === Todo.COMPLETED}
+            onChange={e => this.toggleActive(item.id, item.status)}
           />
         }
         <span onDoubleClick={e => this.changeToEditable(e)}>
