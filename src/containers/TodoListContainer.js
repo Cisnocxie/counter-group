@@ -18,14 +18,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     toggleActive: (viewId, status) => {
       const toggleStatus =
         status === Todo.ACTIVE ? Todo.COMPLETED : Todo.ACTIVE;
-      todosAPI.toggleActive(viewId, toggleStatus, todos =>
-        dispatch(actions.getTodos(todos))
+      todosAPI.toggleActive(viewId, toggleStatus, todo =>
+        dispatch(actions.modifyTodo(todo))
       );
     },
 
     updateItemContent: (viewId, content) => {
-      todosAPI.updateItemContent(viewId, content, todos =>
-        dispatch(actions.getTodos(todos))
+      todosAPI.updateItemContent(viewId, content, todo =>
+        dispatch(actions.modifyTodo(todo))
       );
     }
   };

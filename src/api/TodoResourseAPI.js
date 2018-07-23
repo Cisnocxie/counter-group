@@ -10,7 +10,6 @@ const todosAPI = {
         status: todo.status
       })
       .then(function(response) {
-        console.log(response);
         successCallBack(response.data);
       })
       .catch(function(error) {
@@ -33,7 +32,7 @@ const todosAPI = {
         status: status
       })
       .then(response => {
-        this.getAllTodos(successCallBack);
+        successCallBack(response.data);
       })
       .catch(function(error) {
         console.log(error);
@@ -45,7 +44,7 @@ const todosAPI = {
         content: content
       })
       .then(response => {
-        this.getAllTodos(successCallBack);
+        successCallBack(response.data);
       })
       .catch(function(error) {
         console.log(error);

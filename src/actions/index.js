@@ -6,3 +6,4 @@ export const setStatusOfList = statusOfList => ({
   statusOfList
 });
 export const getTodos = todos => ({ type: ActionTypes.GET_TODOS, todos });
+export const modifyTodo = todo => ({ type: ActionTypes.MODIFY_TODO, todo });

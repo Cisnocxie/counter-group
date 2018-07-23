@@ -6,6 +6,14 @@ export default (state = [], action) => {
     case 'GET_TODOS': {
       return action.todos;
     }
+    case 'MODIFY_TODO': {
+      return state.map(todo => {
+        if (todo.id === action.todo.id) {
+          todo = action.todo;
+        }
+        return todo;
+      });
+    }
     default:
       return state;
   }
