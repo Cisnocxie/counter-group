@@ -6,10 +6,10 @@ import Todo from '../model/Todo';
 
 const mapStateToProps = (state, ownProps) => {
   const status = ownProps.match.params.status;
-  todosAPI.setStatus(status === undefined ? 'all' : status);
+  state.filter = status === undefined ? 'all' : status;
   return {
     todos:
-      status === undefined
+      state.filter === 'all'
         ? state.todos
         : state.todos.filter(item => item.status === status)
   };

@@ -1,11 +1,7 @@
 import axios from 'axios';
 
 const todosAPI = {
-  status: undefined,
   apiUrl: 'http://localhost:8080/api',
-  setStatus(status) {
-    this.status = status;
-  },
   add(todo, successCallBack) {
     axios
       .post(`${this.apiUrl}/todos`, {
